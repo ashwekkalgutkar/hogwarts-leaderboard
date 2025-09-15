@@ -16,7 +16,7 @@ const io = socketIo(server, {
     origin:
       process.env.NODE_ENV === "production"
         ? [
-            "https://your-frontend-domain.netlify.app",
+            "https://hogwarts-leaderboard-c9fc1fyj5-ashweks-projects.vercel.app/",
             "https://your-frontend-domain.vercel.app",
           ]
         : ["http://localhost:3000"],
