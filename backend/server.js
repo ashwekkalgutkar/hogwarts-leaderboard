@@ -16,7 +16,7 @@ const io = socketIo(server, {
     origin:
       process.env.NODE_ENV === "production"
         ? [
-            "https://hogwarts-leaderboard-c9fc1fyj5-ashweks-projects.vercel.app/"
+            "https://hogwarts-leaderboard-c9fc1fyj5-ashweks-projects.vercel.app"
           ]
         : ["http://localhost:3000"],
     methods: ["GET", "POST"],
@@ -31,7 +31,7 @@ app.use(
     origin:
       process.env.NODE_ENV === "production"
         ? [
-            "https://hogwarts-leaderboard-c9fc1fyj5-ashweks-projects.vercel.app/",
+            "https://hogwarts-leaderboard-c9fc1fyj5-ashweks-projects.vercel.app",
           ]
         : ["http://localhost:3000"],
   })
