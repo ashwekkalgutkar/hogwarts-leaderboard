@@ -1,70 +1,114 @@
-# Getting Started with Create React App
+# Hogwarts House Cup Leaderboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Real-time leaderboard system with Node.js backend, React frontend, and MongoDB.
 
-## Available Scripts
+## Setup
 
-In the project directory, you can run:
+### Prerequisites
+- Node.js (v16+)
+- Python 3
+- MongoDB Atlas account
 
-### `npm start`
+### Backend
+```bash
+mkdir hogwarts-leaderboard && cd hogwarts-leaderboard
+mkdir backend && cd backend
+npm init -y
+npm install express mongoose cors dotenv socket.io uuid
+npm install -g nodemon
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Create `.env`:
+```
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/hogwarts-leaderboard
+PORT=5000
+NODE_ENV=development
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Frontend
+```bash
+cd ..
+npx create-react-app frontend
+cd frontend
+npm install socket.io-client
+```
 
-### `npm test`
+## Running
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Terminal 1:**
+```bash
+cd backend
+nodemon server.js
+```
 
-### `npm run build`
+**Terminal 2:**
+```bash
+cd frontend
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Terminal 3:**
+```bash
+cd backend
+python data_gen.py
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Access at http://localhost:3000
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## API Endpoints
 
-### `npm run eject`
+- `GET /api/leaderboard?timeWindow=all|1hour|5min` - Get leaderboard
+- `POST /api/events` - Add event
+- `GET /api/stats` - Get statistics
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Deployment
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Backend (Render)
+1. Push to GitHub
+2. Connect repository on render.com
+3. Build: `npm install`, Start: `node server.js`
+4. Add environment variables
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend (Netlify/Vercel)
+1. Update API_URL in App.js to deployed backend URL
+2. Deploy build folder or connect GitHub
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Files to Create
 
-## Learn More
+Copy the provided code into these files:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Backend:**
+- `package.json`
+- `server.js` 
+- `models/HousePoint.js`
+- `routes/leaderboard.js`
+- `data_gen.py`
+- `.env`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Frontend:**
+- `package.json` (modify existing)
+- `src/App.js`
+- `src/App.css`
+- `src/index.js`
+- `src/index.css`
+- `src/components/Leaderboard.js`
+- `src/components/Leaderboard.css`
+- `public/index.html`
 
-### Code Splitting
+## MongoDB Setup
+1. Create cluster at mongodb.com/atlas
+2. Create database user
+3. Get connection string
+4. Add to `.env` file
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Features
+- Real-time WebSocket updates
+- Time filtering (5min, 1hour, all)
+- House-themed UI with rankings
+- MongoDB data persistence
+- Python data generator
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Troubleshooting
+- MongoDB connection: Check `.env` connection string
+- Port issues: Change PORT in `.env`
+- API connection: Update API_URL in `App.js` for production
