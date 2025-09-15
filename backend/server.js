@@ -26,16 +26,17 @@ const io = socketIo(server, {
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(
-  cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? [
-            "https://hogwarts-leaderboard-c9fc1fyj5-ashweks-projects.vercel.app",
-          ]
-        : ["http://localhost:3000"],
-  })
-);
+// app.use(
+//   cors({
+//     origin:
+//       process.env.NODE_ENV === "production"
+//         ? [
+//             "https://hogwarts-leaderboard-c9fc1fyj5-ashweks-projects.vercel.app",
+//           ]
+//         : ["http://localhost:3000"],
+//   })
+// );
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 // MongoDB connection
